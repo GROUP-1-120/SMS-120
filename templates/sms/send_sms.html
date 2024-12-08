@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send SMS</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+        }
+        .container {
+            display: flex; /* Flexbox layout */
+            justify-content: space-between; /* Space between the form and the list */
+            width: 100%;
+            max-width: 800px; /* Increased width to fit both sections */
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .form-section {
+            width: 60%; /* Form section takes 60% of the container */
+        }
+        .name-list-section {
+            width: 35%; /* Name list section takes 35% of the container */
+            padding-left: 20px;
+            border-left: 2px solid #ccc;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #fafafa;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #ff7e5f;
+            box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+        }
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .name-list {
+            list-style-type: none;
+            padding: 0;
+            font-size: 16px;
+        }
+        .name-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>Send SMS</h1>
+
+            <!-- Display success or error messages -->
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        <div class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="to">Recipient Number:</label>
+                    <input type="text" name="to" id="to" placeholder="Enter recipient's +639xxxxxxxxx" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea name="message" id="message" rows="4" placeholder="Enter your message" required></textarea>
+                </div>
+
+                <button type="submit">Send SMS</button>
+            </form>
+        </div>
+
+        <!-- Name List Section -->
+        <div class="name-list-section">
+            <h2>Group 1</h2>
+            <ul class="name-list">
+                <li>Bernie Cherry Rante</li>
+                <li>Mark Ahron Taglucop</li>
+                <li>Niko Polistico</li>
+                <li>Laurence Jay Perez</li>
+                <li>Dave Jason Salte</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
